@@ -35,11 +35,12 @@ public:
     void showBatteryState(void); // working
     void handleBattery(void); // working
     void setPath(String path); // need to test
-    String getID(); // working
+    String getID(void); // working
     void getBattery(double& v,double& perc); // working
     //add bluetooth
-    sensors_vec_t getAccel(); // need definition of sensors_vec_t on main file, works
-    sensors_vec_t getGyro();
+    sensors_vec_t getAccel(void); // need definition of sensors_vec_t on main file, works
+    sensors_vec_t getGyro(void);
+    String getMac(void);
 };
 
 #endif // BALORA_H

@@ -91,6 +91,7 @@ void writeFile(fs::FS &fs, const char *path, const char *message)
     }
     file.close();
 }
+
 void appendFile(fs::FS &fs, const char *path, const char *message)
 {
     Serial.printf("Appending to file: %s\n", path);
@@ -320,6 +321,7 @@ sensors_vec_t Balora::getAccel() {
 
     return a.acceleration;
 }
+
 sensors_vec_t Balora::getGyro() {
     sensors_event_t a,g,temp;
     mpu.getEvent(&a,&g,&temp);
@@ -375,4 +377,9 @@ void Balora::getBattery(double &v, double &perc)
 {
     v = lipo.getVoltage();
     perc = lipo.getSOC();
+}
+
+String Balora::getMac(){
+    String mac = String(WiFi.macAddress());
+    return mac;
 }
