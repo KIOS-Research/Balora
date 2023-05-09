@@ -384,6 +384,28 @@ String Balora::getMac(){
     return mac;
 }
 
-void Balora::hash(){
-    
+unsigned int hashMACAddress(const uint8_t* mac) {
+  unsigned int hash = 0;
+  
+  for (int i = 0; i < 6; i++) {
+    hash += mac[i];
+    hash += (hash << 10);
+    hash ^= (hash >> 6);
+  }
+  
+  hash += (hash << 3);
+  hash ^= (hash >> 11);
+  hash += (hash << 15);
+  
+  return hash % 10000; // Restrict the output to 4 digits
+}
+
+String Balora::hash(){
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+  
+  // Compute the hash value
+    unsigned int hash = hashMACAddress(mac);
+    String s_hash = String(hash);
+    return s_hash;
 }
