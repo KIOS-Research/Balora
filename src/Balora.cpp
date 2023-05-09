@@ -383,3 +383,7 @@ String Balora::getMac(){
     String mac = String(WiFi.macAddress());
     return mac;
 }
+
+void Balora::hash(){
+    
+}

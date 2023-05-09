@@ -41,6 +41,7 @@ public:
     sensors_vec_t getAccel(void); // need definition of sensors_vec_t on main file, works
     sensors_vec_t getGyro(void);
     String getMac(void);
+    void hash(void);
 };
 
 #endif // BALORA_H
