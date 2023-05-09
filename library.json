@@ -1,0 +1,26 @@
+{
+    "name": "Balora",
+    "version": "1.0.0",
+    "description": "KIOS BaLoRa IoT Board Library",
+    "keywords": "balora",
+    "homepage": "https://github.com/pash97-r/Balora",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/pash97-r/Balora.git"
+    },
+    "authors":
+    {
+        "name": "Theodosis Pasiali",
+        "email": "tpasia01@ucy.ac.cy",
+        "maintainer": true
+    },
+    "license": "KIOSConfidential",
+    "frameworks": "*",
+    "platforms": "*",
+    "headers": "Balora.h",
+    "build":
+    {
+        "libLDFMode": "chain+"
+    }
+}

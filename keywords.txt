@@ -1,0 +1,28 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Balora	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+setLowPowerCPU	KEYWORD2
+setHighPowerCPU	KEYWORD2
+loraTxRx	KEYWORD2
+logBattery	KEYWORD2
+writeToSD	KEYWORD2
+handleBattery	KEYWORD2
+setPath	KEYWORD2
+getAccX	KEYWORD2
+getAccY	KEYWORD2
+getAccZ	KEYWORD2
+getGyroX	KEYWORD2
+getGyroY KEYWORD2
+getGyroZ	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
