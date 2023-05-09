@@ -1,5 +1,5 @@
 # Balora
-Balora IoT Board Library UPDATEME
+Balora IoT Board Library 
 
 The library includes all the basic components needed to function the BaLoRa IoT Board.
 
