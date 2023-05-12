@@ -409,3 +409,25 @@ String Balora::hash(){
     String s_hash = String(hash);
     return s_hash;
 }
+
+void Balora::loraReceiverPublisher(){
+    if(receivedFlag) {
+        enableInterrupt = false;
+        receivedFlag = false;
+
+        nh.spinOnce();
+        
+        String str;
+        int state = radio.readData(str);
+
+        const char *c = str.c_str(); 
+        str_msg.data = c;
+        pub.publish(&str_msg);
+
+        nh.spinOnce();
+
+        // Serial.println(str);
+        radio.startReceive(); 
+        enableInterrupt = true;
+    }
+}

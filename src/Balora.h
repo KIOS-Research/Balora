@@ -29,7 +29,6 @@ public:
     void setLowPowerCPU(void); // working
     void setHighPowerCPU(void); // working
     void loraTxRx(String mess); // pending
-    void loraRos(String mess); // pending
     void logBattery(void); // seems to work, need to verify the sd contents
     void writeToSD(String msg); // appending, need to verify, if card is hot-ejected must restart to continue
     void showBatteryState(void); // working
@@ -42,6 +41,8 @@ public:
     sensors_vec_t getGyro(void);
     String getMac(void);
     String hash(void);
+    void loraReceiverPublisher(void);
+    void loraRos(String mess); // pending
 };
 
 #endif // BALORA_H
