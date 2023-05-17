@@ -15,13 +15,16 @@ loraTxRx	KEYWORD2
 logBattery	KEYWORD2
 writeToSD	KEYWORD2
 handleBattery	KEYWORD2
+showBatteryState KEYWORD2
+getID KEYWORD2
+getBattery KEYWORD2
 setPath	KEYWORD2
-getAccX	KEYWORD2
-getAccY	KEYWORD2
-getAccZ	KEYWORD2
-getGyroX	KEYWORD2
-getGyroY KEYWORD2
-getGyroZ	KEYWORD2
+getAccel KEYWORD2
+getGyro KEYWORD2
+getMac KEYWORD2
+hash KEYWORD2
+loraReceiverPublisher KEYWORD2
+loraRos KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

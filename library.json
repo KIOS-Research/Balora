@@ -1,26 +1,40 @@
 {
-    "name": "Balora",
-    "version": "1.0.0",
-    "description": "KIOS BaLoRa IoT Board Library",
-    "keywords": "balora",
-    "homepage": "https://github.com/pash97-r/Balora",
-    "repository":
+  "name": "Balora",
+  "version": "0.1.0",
+  "description": "KIOS BaLoRa IoT Board Library",
+  "keywords": "balora",
+  "homepage": "https://github.com/KIOS-Research/Balora/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KIOS-Research/Balora.git"
+  },
+  "authors": [
     {
-        "type": "git",
-        "url": "https://github.com/pash97-r/Balora.git"
+      "name": "Theodosis Pasiali",
+      "email": "pasialis97@icloud.com",
+      "maintainer": true
     },
-    "authors":
     {
-        "name": "Theodosis Pasiali",
-        "email": "tpasia01@ucy.ac.cy",
-        "maintainer": true
-    },
-    "license": "KIOSConfidential",
-    "frameworks": "*",
-    "platforms": "*",
-    "headers": "Balora.h",
-    "build":
-    {
-        "libLDFMode": "chain+"
+      "name": "Maria Karatzia",
+      "email": "karatsiamaria9981@gmail.com",
+      "maintainer": true
     }
+  ],
+  "dependencies": {
+    "jgromes/RadioLib": "4.6.0",
+    "sparkfun/SparkFun MAX1704x Fuel Gauge Arduino Library": "*",
+    "adafruit/Adafruit NeoPixel": "*",
+    "adafruit/Adafruit MPU6050": "*",
+    "mikalhart/TinyGPSPlus": "*",
+    "fbiego/ESP32Time": "*",
+    "external-repo": "https://github.com/espressif/arduino-esp32/tree/master/libraries/BluetoothSerial.git",
+    "frankjoshua/Rosserial Arduino Library": "*"
+  },
+  "license": "EUPL v1.1",
+  "frameworks": "*",
+  "platforms": "*",
+  "headers": "Balora.h",
+  "build": {
+    "libLDFMode": "chain+"
+  }
 }
