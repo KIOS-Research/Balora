@@ -29,17 +29,20 @@ public:
     void setLowPowerCPU(void); // working
     void setHighPowerCPU(void); // working
     void loraTxRx(String mess); // pending
-    void loraRos(String mess); // pending
     void logBattery(void); // seems to work, need to verify the sd contents
     void writeToSD(String msg); // appending, need to verify, if card is hot-ejected must restart to continue
     void showBatteryState(void); // working
     void handleBattery(void); // working
     void setPath(String path); // need to test
-    String getID(); // working
+    String getID(void); // working
     void getBattery(double& v,double& perc); // working
     //add bluetooth
-    sensors_vec_t getAccel(); // need definition of sensors_vec_t on main file, works
-    sensors_vec_t getGyro();
+    sensors_vec_t getAccel(void); // need definition of sensors_vec_t on main file, works
+    sensors_vec_t getGyro(void);
+    String getMac(void);
+    String hash(void);
+    void loraReceiverPublisher(void);
+    void loraRos(String mess); // pending
 };
 
 #endif // BALORA_H

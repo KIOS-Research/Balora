@@ -91,6 +91,7 @@ void writeFile(fs::FS &fs, const char *path, const char *message)
     }
     file.close();
 }
+
 void appendFile(fs::FS &fs, const char *path, const char *message)
 {
     Serial.printf("Appending to file: %s\n", path);
@@ -320,6 +321,7 @@ sensors_vec_t Balora::getAccel() {
 
     return a.acceleration;
 }
+
 sensors_vec_t Balora::getGyro() {
     sensors_event_t a,g,temp;
     mpu.getEvent(&a,&g,&temp);
@@ -375,4 +377,57 @@ void Balora::getBattery(double &v, double &perc)
 {
     v = lipo.getVoltage();
     perc = lipo.getSOC();
+}
+
+String Balora::getMac(){
+    String mac = String(WiFi.macAddress());
+    return mac;
+}
+
+unsigned int hashMACAddress(const uint8_t* mac) {
+  unsigned int hash = 0;
+  
+  for (int i = 0; i < 6; i++) {
+    hash += mac[i];
+    hash += (hash << 10);
+    hash ^= (hash >> 6);
+  }
+  
+  hash += (hash << 3);
+  hash ^= (hash >> 11);
+  hash += (hash << 15);
+  
+  return hash % 10000; // Restrict the output to 4 digits
+}
+
+String Balora::hash(){
+    uint8_t mac[6];
+    WiFi.macAddress(mac);
+  
+  // Compute the hash value
+    unsigned int hash = hashMACAddress(mac);
+    String s_hash = String(hash);
+    return s_hash;
+}
+
+void Balora::loraReceiverPublisher(){
+    if(receivedFlag) {
+        enableInterrupt = false;
+        receivedFlag = false;
+
+        nh.spinOnce();
+        
+        String str;
+        int state = radio.readData(str);
+
+        const char *c = str.c_str(); 
+        str_msg.data = c;
+        pub.publish(&str_msg);
+
+        nh.spinOnce();
+
+        // Serial.println(str);
+        radio.startReceive(); 
+        enableInterrupt = true;
+    }
 }
