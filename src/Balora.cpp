@@ -449,9 +449,9 @@ void Balora::loraReceiverPublisher()
         SerialBT.begin(BTID);
         Serial.println("Discoverable. Pair it with bluetooth");
     }
-    void Balora::BTReceive()
+    String Balora::BTReceive()
     {
-        Serial.write(SerialBT.read());
+        String BtRx = SerialBT.read();
     }
     void Balora::BTSend(String msg)
     {

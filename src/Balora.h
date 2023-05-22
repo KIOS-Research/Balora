@@ -44,7 +44,7 @@ public:
     void loraRos(String mess);                                // pending
     void setBTName(String btName);                            // pending
     void BTInit(void);                                        // pending
-    void BTReceive(void);                                     // pending
+    String BTReceive(void);                                   // pending
     void BTSend(String msg);                                  // pending
 };
 
