@@ -27,7 +27,10 @@ The supported PCB design will be included in the PCB folder of the repository. T
 
 - Semtech SX1268 LoRa Module
 - Adafruit MPU6050 IMU
-- to be added
+- GPS Module (TBD)
+- Adafruit NeoPixels (x2)
+- microSD Reader
+- Sparkfun MAX17048 Battery Monitoring IC
 
 ## Functions
 
@@ -64,14 +67,18 @@ The LoRa mesh implementation is carried out by assigning a timeslot to each of t
 
 ## Contributing
 
-We welcome contributions from the community to enhance the Balora IoT Platform Library.
+Everyone is welcome to participate in this project. Whether you are helping others to resolve issues, reporting a new issue that hasn't yet been discovered, suggesting a new feature that would benefit your workflow, or writing code (or tests, or scripts, or ...), we value your time and effort.
+
+The path for contribution starts with the [Issues](https://github.com/KIOS-Research/Balora/issues). You can create a new issue in case you discover a new bug or you have a useful suggestion that you’d like to be implemented. If you want to contribute code, fork this repo to your own account. Make your commits on your dev branch (or one based on dev). Once you are finished, you can open a Pull Request to test the code and discuss merging your changes back into the community repository.
 
 ## License
 
-The Balora IoT Platform Library is open-source software licensed under the EUPL License.
+The Balora IoT Platform Library is open-source software licensed under the [EUPL License](https://github.com/KIOS-Research/Balora/blob/master/LICENSE.md).
 
 ## Contributors
 
--Theodosis Pasiali
--Maria Karatzia
--Panagiotis S. Kolios
+### The library was developed by
+
+- [Panagiotis Kolios](https://www.kios.ucy.ac.cy/pkolios/)
+- [Theodosis Pasiali](https://www.linkedin.com/in/theodosis-pasiali/)
+- [Maria Karatzia](https://www.linkedin.com/in/maria-karatzia/)
