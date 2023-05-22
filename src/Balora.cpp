@@ -33,10 +33,13 @@ SFE_MAX1704X lipo(MAX1704X_MAX17048);
 ESP32Time rtc(7200); // GMT+2 Offset
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
+BluetoothSerial SerialBT;
+
 TinyGPSPlus gps;
 
 String ID;
 String ID_numb;
+String BTID = ("Balora" + ID).c_str();
 
 String message = "null";
 int transmit_sec;
@@ -216,7 +219,6 @@ void Balora::begin(void)
     SDInit();
     pixels.begin();
     pixels.clear();
-
 }
 
 void Balora::setLowPowerCPU(void)
@@ -315,16 +317,18 @@ void Balora::setPath(String path)
     pathSD = path;
 }
 
-sensors_vec_t Balora::getAccel() {
-    sensors_event_t a,g,temp;
-    mpu.getEvent(&a,&g,&temp);
+sensors_vec_t Balora::getAccel()
+{
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
 
     return a.acceleration;
 }
 
-sensors_vec_t Balora::getGyro() {
-    sensors_event_t a,g,temp;
-    mpu.getEvent(&a,&g,&temp);
+sensors_vec_t Balora::getGyro()
+{
+    sensors_event_t a, g, temp;
+    mpu.getEvent(&a, &g, &temp);
 
     return g.gyro;
 }
@@ -335,7 +339,7 @@ void Balora::initWiFiClient(const char *wssid, const char *pass)
     WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password);
     Serial.print("Connecting to WiFi...");
-    while(WiFi.status() != WL_CONNECTED)
+    while (WiFi.status() != WL_CONNECTED)
     {
         Serial.print('.');
         delay(1000);
@@ -379,55 +383,78 @@ void Balora::getBattery(double &v, double &perc)
     perc = lipo.getSOC();
 }
 
-String Balora::getMac(){
+String Balora::getMac()
+{
     String mac = String(WiFi.macAddress());
     return mac;
 }
 
-unsigned int hashMACAddress(const uint8_t* mac) {
-  unsigned int hash = 0;
-  
-  for (int i = 0; i < 6; i++) {
-    hash += mac[i];
-    hash += (hash << 10);
-    hash ^= (hash >> 6);
-  }
-  
-  hash += (hash << 3);
-  hash ^= (hash >> 11);
-  hash += (hash << 15);
-  
-  return hash % 10000; // Restrict the output to 4 digits
+unsigned int hashMACAddress(const uint8_t *mac)
+{
+    unsigned int hash = 0;
+
+    for (int i = 0; i < 6; i++)
+    {
+        hash += mac[i];
+        hash += (hash << 10);
+        hash ^= (hash >> 6);
+    }
+
+    hash += (hash << 3);
+    hash ^= (hash >> 11);
+    hash += (hash << 15);
+
+    return hash % 10000; // Restrict the output to 4 digits
 }
 
-String Balora::hash(){
+String Balora::hash()
+{
     uint8_t mac[6];
     WiFi.macAddress(mac);
-  
-  // Compute the hash value
+
+    // Compute the hash value
     unsigned int hash = hashMACAddress(mac);
     String s_hash = String(hash);
     return s_hash;
 }
 
-void Balora::loraReceiverPublisher(){
-    if(receivedFlag) {
+void Balora::loraReceiverPublisher()
+{
+    if (receivedFlag)
+    {
         enableInterrupt = false;
         receivedFlag = false;
 
         nh.spinOnce();
-        
+
         String str;
         int state = radio.readData(str);
 
-        const char *c = str.c_str(); 
+        const char *c = str.c_str();
         str_msg.data = c;
         pub.publish(&str_msg);
 
         nh.spinOnce();
 
         // Serial.println(str);
-        radio.startReceive(); 
+        radio.startReceive();
         enableInterrupt = true;
+    }
+    void Balora::setBTName(String btName)
+    {
+        BTID = btName;
+    }
+    void Balora::BTInit(void)
+    {
+        SerialBT.begin(BTID);
+        Serial.println("Discoverable. Pair it with bluetooth");
+    }
+    void Balora::BTReceive()
+    {
+        Serial.write(SerialBT.read());
+    }
+    void Balora::BTSend(String msg)
+    {
+        SerialBT.write(msg);
     }
 }
