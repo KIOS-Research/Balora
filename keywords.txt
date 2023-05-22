@@ -25,6 +25,10 @@ getMac KEYWORD2
 hash KEYWORD2
 loraReceiverPublisher KEYWORD2
 loraRos KEYWORD2
+setBTName KEYWORD2
+BTInit KEYWORD2
+BTReceive KEYWORD2
+BTSend KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
