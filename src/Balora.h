@@ -16,6 +16,7 @@
 #include <WiFi.h>
 #include <ros.h>
 #include <std_msgs/String.h>
+#inlude <BluetoothSerial.h>
 
 class Balora
 {
