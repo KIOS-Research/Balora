@@ -32,6 +32,12 @@ The supported PCB design will be included in the PCB folder of the repository. T
 - microSD Reader
 - Sparkfun MAX17048 Battery Monitoring IC
 
+## Installation
+Add the following line to your `platformio.ini` file:
+```json
+https://github.com/KIOS-Research/Balora.git
+```
+
 ## Functions
 
 | Function                                              | Description                                                       |
