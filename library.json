@@ -28,6 +28,7 @@
     "mikalhart/TinyGPSPlus": "*",
     "fbiego/ESP32Time": "*",
     "BluetoothSerial": "*",
+    "SPI": "*",
     "frankjoshua/Rosserial Arduino Library": "*"
   },
   "license": "EUPL v1.1",
