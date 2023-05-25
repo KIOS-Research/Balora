@@ -440,21 +440,26 @@ void Balora::loraReceiverPublisher()
         radio.startReceive();
         enableInterrupt = true;
     }
-    void Balora::setBTName(String btName)
-    {
-        BTID = btName;
-    }
-    void Balora::BTInit(void)
-    {
-        SerialBT.begin(BTID);
-        Serial.println("Discoverable. Pair it with bluetooth");
-    }
-    String Balora::BTReceive()
-    {
-        String BtRx = SerialBT.read();
-    }
-    void Balora::BTSend(String msg)
-    {
-        SerialBT.write(msg);
-    }
+}
+void Balora::setBTName(String btName)
+{
+    BTID = btName;
+}
+void Balora::BTInit(void)
+{
+    SerialBT.begin(BTID);
+    Serial.println("Discoverable. Pair it with bluetooth");
+}
+String Balora::BTReceive()
+{
+    char * buf;
+    itoa(SerialBT.read(),buf,10);
+    String BtRx(buf);
+    return BtRx;
+}
+void Balora::BTSend(String msg)
+{
+  const char* txMsg= msg.c_str();
+    int txBt = atoi(txMsg);
+    SerialBT.write(txBt);
 }
