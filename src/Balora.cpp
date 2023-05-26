@@ -202,7 +202,7 @@ void print_wakeup_reason(void)
 
 Balora::Balora(const String &id) // working
 {
-    ID = id;
+    ID = id.c_str();
     ID_numb = ID.substring(1, 2);
 };
 
