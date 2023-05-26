@@ -29,12 +29,12 @@ public:
     void rosInit(void);                                       // pending
     void setLowPowerCPU(void);                                // working
     void setHighPowerCPU(void);                               // working
-    void loraTxRx(String mess);                               // pending
+    void loraTxRx(String &mess);                              // pending
     void logBattery(void);                                    // seems to work, need to verify the sd contents
-    void writeToSD(String msg);                               // appending, need to verify, if card is hot-ejected must restart to continue
+    void writeToSD(String &msg);                              // appending, need to verify, if card is hot-ejected must restart to continue
     void showBatteryState(void);                              // working
     void handleBattery(void);                                 // working
-    void setPath(String path);                                // need to test
+    void setPath(String &path);                               // need to test
     String getID(void);                                       // working
     void getBattery(double &v, double &perc);                 // working
     sensors_vec_t getAccel(void);                             // need definition of sensors_vec_t on main file, works
@@ -42,11 +42,11 @@ public:
     String getMac(void);                                      // working
     String hash(void);                                        // working
     void loraReceiverPublisher(void);                         // pending
-    void loraRos(String mess);                                // pending
-    void setBTName(String btName);                            // pending
+    void loraRos(String &mess);                               // pending
+    void setBTName(String &btName);                           // pending
     void BTInit(void);                                        // pending
     String BTReceive(void);                                   // pending
-    void BTSend(String msg);                                  // pending
+    void BTSend(String &msg);                                 // pending
 };
 
 #endif // BALORA_H
