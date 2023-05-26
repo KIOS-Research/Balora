@@ -86,3 +86,7 @@ The Balora IoT Platform Library is open-source software licensed under the [EUPL
 - [Theodosis Pasiali](https://www.linkedin.com/in/theodosis-pasiali/)
 - [Maria Karatzia](https://www.linkedin.com/in/maria-karatzia/)
 - [Panagiotis Kolios](https://www.kios.ucy.ac.cy/pkolios/)
+
+### PCB Design by
+
+ - [Odysseas Economides](https://www.linkedin.com/in/odysseas-economides/)
