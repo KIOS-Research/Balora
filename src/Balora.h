@@ -22,7 +22,7 @@ class Balora
 {
 public:
     // constructor
-    Balora(String id); // working
+    Balora(String &id); // working
 
     void begin(void);
     void initWiFiClient(const char *wssid, const char *pass); // working
