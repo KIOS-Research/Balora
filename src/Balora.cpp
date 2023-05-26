@@ -200,7 +200,7 @@ void print_wakeup_reason(void)
     }
 }
 
-Balora::Balora(String id) // working
+Balora::Balora(const String &id) // working
 {
     ID = id;
     ID_numb = ID.substring(1, 2);
@@ -231,15 +231,14 @@ void Balora::setHighPowerCPU(void)
     Serial.println("Setting CPU to 240MHz");
     setCpuFrequencyMhz(240);
 }
-void Balora::loraTxRx(String mess)
+void Balora::loraTxRx(const String &mess)
 {
-    message = mess;
     transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
     String sec = String(transmit_sec);
     if (flag && sec.endsWith(ID_numb))
     {
         flag = false;
-        String transmit_msg = String(String(ID) + "," + String(message));
+        String transmit_msg = String(String(ID) + "," + String(mess));
         int state = radio.transmit(transmit_msg);
     }
     else
@@ -250,15 +249,14 @@ void Balora::loraTxRx(String mess)
         String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
     }
 }
-void Balora::loraRos(String mess)
+void Balora::loraRos(const String &mess)
 {
-    message = mess;
     transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
     String sec = String(transmit_sec);
     if (flag && sec.endsWith(ID_numb))
     {
         flag = false;
-        String transmit_msg = String(String(ID) + "," + String(message));
+        String transmit_msg = String(String(ID) + "," + String(mess));
         int state = radio.transmit(transmit_msg);
     }
     else
@@ -285,7 +283,7 @@ void Balora::logBattery(void)
     String bat = String(String(rtc.getTime()) + "," + String(voltage) + "," + String(soc) + "\r\n");
     writeToSD(bat);
 }
-void Balora::writeToSD(String msg)
+void Balora::writeToSD(const String &msg)
 {
     appendFile(SD, pathSD.c_str(), msg.c_str());
 }
@@ -312,7 +310,7 @@ void Balora::handleBattery(void)
         esp_deep_sleep_start();
     }
 }
-void Balora::setPath(String path)
+void Balora::setPath(const String &path)
 {
     pathSD = path;
 }
@@ -441,7 +439,7 @@ void Balora::loraReceiverPublisher()
         enableInterrupt = true;
     }
 }
-void Balora::setBTName(String btName)
+void Balora::setBTName(const String &btName)
 {
     BTID = btName;
 }
@@ -452,14 +450,14 @@ void Balora::BTInit(void)
 }
 String Balora::BTReceive()
 {
-    char * buf;
-    itoa(SerialBT.read(),buf,10);
+    char *buf;
+    itoa(SerialBT.read(), buf, 10);
     String BtRx(buf);
     return BtRx;
 }
-void Balora::BTSend(String msg)
+void Balora::BTSend(const String &msg)
 {
-  const char* txMsg= msg.c_str();
+    const char *txMsg = msg.c_str();
     int txBt = atoi(txMsg);
     SerialBT.write(txBt);
 }
