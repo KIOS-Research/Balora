@@ -4,7 +4,7 @@
 
 The Balora IoT Platform Library is a comprehensive library developed for the Balora IoT platform, which combines the power of LoRa, Bluetooth, WiFi, IMU, Battery, and the ESP32-PICO-D4 MCU. This library provides a unified interface and a set of convenient functions to simplify the development of IoT applications using the Balora custom board.
 
-## Dependencies
+## Dependencies (Automatically imported on PlatformIO)
 
 - [Sparkfun MAX1704x Fuel Gauge Arduino Library](https://github.com/sparkfun/SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library)
 - [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)
@@ -27,11 +27,13 @@ The supported PCB design will be included in the PCB folder of the repository. T
 - Sparkfun MAX17048 Battery Monitoring IC
 
 ## Installation
+
 Add the following line to your `platformio.ini` file:
-```
-lib_deps = https://github.com/KIOS-Research/Balora.git
-```
+
+`lib_deps = https://github.com/KIOS-Research/Balora.git`
+
 OR
+
 - Clone the Repository: `git clone https://github.com/KIOS-Research/Balora.git`
 - Add the library to you PlatformIO Project: `platformio lib install /path/to/Balora`
 - Include the library to your project `#include <Balora.h>`
@@ -89,4 +91,4 @@ The Balora IoT Platform Library is open-source software licensed under the [EUPL
 
 ### PCB Design by
 
- - [Odysseas Economides](https://www.linkedin.com/in/odysseas-economides/)
+- [Odysseas Economides](https://www.linkedin.com/in/odysseas-economides/)
