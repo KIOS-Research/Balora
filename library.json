@@ -29,7 +29,8 @@
     "fbiego/ESP32Time": "*",
     "BluetoothSerial": "*",
     "SPI": "*",
-    "frankjoshua/Rosserial Arduino Library": "*"
+    "frankjoshua/Rosserial Arduino Library": "*",
+    "adafruit/Adafruit BusIO": "*"
   },
   "license": "EUPL v1.1",
   "frameworks": "*",

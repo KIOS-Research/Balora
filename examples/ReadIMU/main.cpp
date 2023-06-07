@@ -9,10 +9,6 @@ void setup()
     Serial.begin(115200);
     node.begin();
     node.setLowPowerCPU();
-    while (!Serial.available())
-    {
-        ;
-    }
     Serial.println("------IMU EXAMPLE------");
 }
 

@@ -1,2 +1,4 @@
 .DS_Store
 .vscode
+examples/ReadIMU/ExampleTests.code-workspace
+.gitignore

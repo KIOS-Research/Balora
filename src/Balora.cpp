@@ -55,16 +55,16 @@ const char *ssid;
 const char *password;
 
 // ROS Serial library dependencies
-ros::NodeHandle nh;
-std_msgs::String str_msg;
-ros::Publisher pub("LAPTOP", &str_msg);
+// ros::NodeHandle nh;
+// std_msgs::String str_msg;
+// ros::Publisher pub("LAPTOP", &str_msg);
 
-void messageCb(const std_msgs::String &msg)
-{
-    message = msg.data;
-    flag = true;
-}
-ros::Subscriber<std_msgs::String> sub("/loremetry", &messageCb);
+// void messageCb(const std_msgs::String &msg)
+// {
+//     message = msg.data;
+//     flag = true;
+// }
+// ros::Subscriber<std_msgs::String> sub("/loremetry", &messageCb);
 
 // Global Functions
 void MPUInit(void)
@@ -200,7 +200,7 @@ void print_wakeup_reason(void)
     }
 }
 
-Balora::Balora(const String id) // working
+Balora::Balora(String id) // working
 {
     ID = id;
     ID_numb = ID.substring(1, 2);
@@ -209,10 +209,8 @@ Balora::Balora(const String id) // working
 void Balora::begin(void)
 {
     Wire.begin();
-    // Serial.begin(SERIAL_BAUD);
-    // // Serial1.begin(GPS_BAUD);
-    mpu.begin();
     MPUInit();
+    mpu.begin();
     // LoraInitialization();
     batteryInit();
     showBatteryState();
@@ -231,7 +229,7 @@ void Balora::setHighPowerCPU(void)
     Serial.println("Setting CPU to 240MHz");
     setCpuFrequencyMhz(240);
 }
-void Balora::loraTxRx(const String mess)
+void Balora::loraTxRx(String mess)
 {
     transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
     String sec = String(transmit_sec);
@@ -249,32 +247,32 @@ void Balora::loraTxRx(const String mess)
         String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
     }
 }
-void Balora::loraRos(const String mess)
-{
-    transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
-    String sec = String(transmit_sec);
-    if (flag && sec.endsWith(ID_numb))
-    {
-        flag = false;
-        String transmit_msg = String(String(ID) + "," + String(mess));
-        int state = radio.transmit(transmit_msg);
-    }
-    else
-    {
-        unsigned int i = 0;
-        String str;
-        int state = radio.receive(str);
-        String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
+// void Balora::loraRos(const String mess)
+// {
+//     transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
+//     String sec = String(transmit_sec);
+//     if (flag && sec.endsWith(ID_numb))
+//     {
+//         flag = false;
+//         String transmit_msg = String(String(ID) + "," + String(mess));
+//         int state = radio.transmit(transmit_msg);
+//     }
+//     else
+//     {
+//         unsigned int i = 0;
+//         String str;
+//         int state = radio.receive(str);
+//         String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
 
-        if (!str.length() == i)
-        {
-            const char *c = msg.c_str();
-            str_msg.data = c;
-            pub.publish(&str_msg);
-        }
-    }
-    nh.spinOnce();
-}
+//         if (!str.length() == i)
+//         {
+//             const char *c = msg.c_str();
+//             str_msg.data = c;
+//             pub.publish(&str_msg);
+//         }
+//     }
+//     nh.spinOnce();
+// }
 void Balora::logBattery(void)
 {
     double voltage = lipo.getVoltage();
@@ -283,7 +281,7 @@ void Balora::logBattery(void)
     String bat = String(String(rtc.getTime()) + "," + String(voltage) + "," + String(soc) + "\r\n");
     writeToSD(bat);
 }
-void Balora::writeToSD(const String msg)
+void Balora::writeToSD(String msg)
 {
     appendFile(SD, pathSD.c_str(), msg.c_str());
 }
@@ -310,7 +308,7 @@ void Balora::handleBattery(void)
         esp_deep_sleep_start();
     }
 }
-void Balora::setPath(const String path)
+void Balora::setPath(String path)
 {
     pathSD = path;
 }
@@ -344,17 +342,17 @@ void Balora::initWiFiClient(const char *wssid, const char *pass)
     }
     Serial.println(WiFi.localIP());
 }
-void Balora::rosInit()
-{
-    WiFi.begin(ssid, password);
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        ;
-    }
-    nh.initNode();
-    nh.advertise(pub);
-    nh.subscribe(sub);
-}
+// void Balora::rosInit()
+// {
+//     WiFi.begin(ssid, password);
+//     while (WiFi.status() != WL_CONNECTED)
+//     {
+//         ;
+//     }
+//     nh.initNode();
+//     nh.advertise(pub);
+//     nh.subscribe(sub);
+// }
 String Balora::getID() // working
 {
     return ID;
@@ -416,30 +414,30 @@ String Balora::hash()
     return s_hash;
 }
 
-void Balora::loraReceiverPublisher()
-{
-    if (receivedFlag)
-    {
-        enableInterrupt = false;
-        receivedFlag = false;
+// void Balora::loraReceiverPublisher()
+// {
+//     if (receivedFlag)
+//     {
+//         enableInterrupt = false;
+//         receivedFlag = false;
 
-        nh.spinOnce();
+//         nh.spinOnce();
 
-        String str;
-        int state = radio.readData(str);
+//         String str;
+//         int state = radio.readData(str);
 
-        const char *c = str.c_str();
-        str_msg.data = c;
-        pub.publish(&str_msg);
+//         const char *c = str.c_str();
+//         str_msg.data = c;
+//         pub.publish(&str_msg);
 
-        nh.spinOnce();
+//         nh.spinOnce();
 
-        // Serial.println(str);
-        radio.startReceive();
-        enableInterrupt = true;
-    }
-}
-void Balora::setBTName(const String btName)
+//         // Serial.println(str);
+//         radio.startReceive();
+//         enableInterrupt = true;
+//     }
+// }
+void Balora::setBTName(String btName)
 {
     BTID = btName;
 }
@@ -450,14 +448,17 @@ void Balora::BTInit(void)
 }
 String Balora::BTReceive()
 {
-    char *buf;
-    itoa(SerialBT.read(), buf, 10);
-    String BtRx(buf);
-    return BtRx;
+    String mess = "";
+    if (SerialBT.available())
+    {
+        mess = SerialBT.readStringUntil('\n');
+        mess.remove(mess.length() - 1, 1);
+    }
+    return mess;
 }
-void Balora::BTSend(const String msg)
+void Balora::BTSend(String msg)
 {
-    const char *txMsg = msg.c_str();
-    int txBt = atoi(txMsg);
-    SerialBT.write(txBt);
+    // char *buf;
+    // msg.toCharArray(buf, 30);
+    SerialBT.println(msg);
 }
