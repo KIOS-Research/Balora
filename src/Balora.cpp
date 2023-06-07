@@ -6,10 +6,6 @@
 #define SD_SCLK 18
 #define SD_CS 25
 
-// Baudrates for GPS and ROS/Serial
-#define GPS_BAUD 9600
-#define SERIAL_BAUD 115200
-
 #define PIN 26      // NeoPixels Pin Number
 #define NUMPIXELS 2 // Number of NeoPixels
 
@@ -330,10 +326,8 @@ sensors_vec_t Balora::getGyro()
 }
 void Balora::initWiFiClient(const char *wssid, const char *pass)
 {
-    ssid = wssid;
-    password = pass;
     WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password);
+    WiFi.begin(wssid, pass);
     Serial.print("Connecting to WiFi...");
     while (WiFi.status() != WL_CONNECTED)
     {
