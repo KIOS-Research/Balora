@@ -28,11 +28,11 @@ public:
     void initWiFiClient(const char *wssid, const char *pass); // working
     // void rosInit(void);                                       // pending
     void LoraInit(void);                      // pending
-    void MPUInit(void);                       // pending
+    void MPUInit(void);                       // working
     void setLowPowerCPU(void);                // working
     void setHighPowerCPU(void);               // working
     void loraTxRx(String mess);               // pending
-    void SDInit(void);                        // pending
+    void SDInit(void);                        // working
     void logBattery(void);                    // seems to work, need to verify the sd contents
     void writeToSD(String msg);               // working, if card is hot-ejected must restart to continue
     void showBatteryState(void);              // working

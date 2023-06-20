@@ -218,12 +218,8 @@ Balora::Balora(String id) // working
 void Balora::begin(void)
 {
     Wire.begin();
-    // MPUInit();
-    // mpu.begin();
-    // LoraInitialization();
     batteryInit();
     showBatteryState();
-    // SDInit();
     pixels.begin();
     pixels.clear();
 }
@@ -452,7 +448,7 @@ void Balora::BTInit(String btName)
 {
     BTID = btName;
     SerialBT.begin(BTID);
-    Serial.println("Discoverable. Pair it with bluetooth");
+    Serial.println("Discoverable. Pair it with Bluetooth");
 }
 String Balora::BTReceive()
 {

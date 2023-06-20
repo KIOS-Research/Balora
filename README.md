@@ -8,7 +8,7 @@ The Balora IoT Platform Library is a comprehensive library developed for the Bal
 
 - [Sparkfun MAX1704x Fuel Gauge Arduino Library](https://github.com/sparkfun/SparkFun_MAX1704x_Fuel_Gauge_Arduino_Library)
 - [Adafruit NeoPixel](https://github.com/adafruit/Adafruit_NeoPixel)
-- [RadioLib v4.6.0](https://github.com/jgromes/RadioLib)
+- [RadioLib](https://github.com/jgromes/RadioLib)
 - [Adafruit MPU6050](https://github.com/adafruit/Adafruit_MPU6050)
 - [TinyGPSPlus](https://github.com/mikalhart/TinyGPSPlus)
 - [ESP32Time](https://github.com/fbiego/ESP32Time)
@@ -45,9 +45,10 @@ OR
 | Balora node("node id");                               | Initializes core modules and sets the node id.                    |
 | node.begin();                                         | Initializes all modules on board                                  |
 | node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password      |
-| node.rosInit();                                       | Initializes ROS subscribe and publish PENDING                     |
+| node.MPUInit();                                       | Initializes MPU6050                                               |
 | node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                       |
 | node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                      |
+| node.SDInit;                                          | Initializes SD Module                                             |
 | node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication)   |
 | node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage) |
 | node.writeToSD("message");                            | Writes given message to SD.                                       |
@@ -59,7 +60,7 @@ OR
 | sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data)          |
 | sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data)              |
 | String macAd = node.getMac();                         | Returns the MAC address of the node                               |
-| String nodeHash = node.hash();                        | Returns the Hash of the MAC address                               |
+| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                               |
 | node.loraReceiverPublisher();                         | LoRa Reception and Publish to ROS Topic                           |
 | node.loraRos("message");                              | LoRa and ROS Receive-Publish and Transmit-Subscribe               |
 | node.setBTName("Name");                               | Set Bluetooth Broadcast Name (default: BaloraID)                  |
