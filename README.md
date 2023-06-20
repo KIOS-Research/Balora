@@ -13,7 +13,6 @@ The Balora IoT Platform Library is a comprehensive library developed for the Bal
 - [TinyGPSPlus](https://github.com/mikalhart/TinyGPSPlus)
 - [ESP32Time](https://github.com/fbiego/ESP32Time)
 - [BluetoothSerial](https://github.com/espressif/arduino-esp32/tree/master/libraries/BluetoothSerial)
-- [ROSSerial](https://github.com/frankjoshua/rosserial_arduino_lib)
 
 ## Hardware Supported
 
@@ -48,7 +47,7 @@ OR
 | node.MPUInit();                                       | Initializes MPU6050                                               |
 | node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                       |
 | node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                      |
-| node.SDInit;                                          | Initializes SD Module                                             |
+| node.SDInit();                                        | Initializes SD Module                                             |
 | node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication)   |
 | node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage) |
 | node.writeToSD("message");                            | Writes given message to SD.                                       |
@@ -61,8 +60,6 @@ OR
 | sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data)              |
 | String macAd = node.getMac();                         | Returns the MAC address of the node                               |
 | String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                               |
-| node.loraReceiverPublisher();                         | LoRa Reception and Publish to ROS Topic                           |
-| node.loraRos("message");                              | LoRa and ROS Receive-Publish and Transmit-Subscribe               |
 | node.setBTName("Name");                               | Set Bluetooth Broadcast Name (default: BaloraID)                  |
 | node.BTInit();                                        | Initialize Bluetooth Serial Communication                         |
 | String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial                               |
@@ -71,6 +68,11 @@ OR
 ## LoRa Communication
 
 The LoRa mesh implementation is carried out by assigning a timeslot to each of the nodes. The node number defines the time slot. Each slot is assigned per second. Example: Node B3 is assigned the 3rd second slot.
+
+## Bluetooth Communication
+
+The Bluetooth communication is achieved with the BluetoothSerial library that utilizes the Android Bluetooth Terminal
+[app](https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal).
 
 ## Contributing
 
