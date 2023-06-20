@@ -6,47 +6,59 @@
 #define SD_SCLK 18
 #define SD_CS 25
 
+SPIClass sdSPI(HSPI);
+
 #define PIN 26      // NeoPixels Pin Number
 #define NUMPIXELS 2 // Number of NeoPixels
+
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 #define uS_TO_S_FACTOR 1000000ULL
 #define TIME_TO_SLEEP 60 * 2 // Deep Sleep 2 mins
 
+// SX1268 LoRa Module SPI pins
 #define LORA_TXEN_PIN 2  // SX1268 TX enable pin
 #define LORA_RXEN_PIN 15 // SX1268 RX enable pin
-
-// SX1268 LoRa Module SPI pins
 #define LORA_CS 5
 #define LORA_IRQ 14
 #define LORA_RST 12
 #define LORA_GPIO 27
 
-SPIClass sdSPI(HSPI);
-
 SX1268 radio = new Module(LORA_CS, LORA_IRQ, LORA_RST, LORA_GPIO);
-Adafruit_MPU6050 mpu;
-SFE_MAX1704X lipo(MAX1704X_MAX17048);
-ESP32Time rtc(7200); // GMT+2 Offset
-Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
+// MPU Declaration
+Adafruit_MPU6050 mpu;
+
+// Battery Management Declaration
+SFE_MAX1704X lipo(MAX1704X_MAX17048);
+
+// Time Declaration
+ESP32Time rtc(7200); // GMT+2 Offset
+
+// Bluetooth Declaration
 BluetoothSerial SerialBT;
 
+// GPS Declaration
 TinyGPSPlus gps;
 
+// IDs Declaration
 String ID;
 String ID_numb;
 String BTID = ("Balora" + ID).c_str();
 
 String message = "null";
-int transmit_sec;
 String pathSD = "/log.txt";
 
+// LoRa Auxiliaries Declaration
+int transmit_sec;
 volatile bool receivedFlag = false;
 volatile bool enableInterrupt = true;
 volatile bool flag = false;
 
+// Battery Voltage and Percentage Declaration
 double vltg, perc;
 
+// WiFi Client Parameter Declaration
 const char *ssid;
 const char *password;
 
@@ -63,8 +75,9 @@ const char *password;
 // ros::Subscriber<std_msgs::String> sub("/loremetry", &messageCb);
 
 // Global Functions
-void MPUInit(void)
+void Balora::MPUInit(void)
 {
+    mpu.begin();
     mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
     mpu.setGyroRange(MPU6050_RANGE_500_DEG);
     mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
@@ -110,7 +123,7 @@ void appendFile(fs::FS &fs, const char *path, const char *message)
     }
     file.close();
 }
-void SDInit()
+void Balora::SDInit()
 {
     sdSPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);
     if (!SD.begin(SD_CS, sdSPI))
@@ -149,9 +162,9 @@ void setFlag(void)
     }
     receivedFlag = true;
 }
-void LoraInitialization(void)
+void Balora::LoraInit(void)
 {
-    int state = radio.begin(434.0, 125.0, 9, 7, SX126X_SYNC_WORD_PRIVATE, 10, 8, 0, false);
+    int state = radio.begin(434.0, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 10, 8, 0, false);
     radio.setRfSwitchPins(26, 2);
     radio.setDio1Action(setFlag);
 }
@@ -205,12 +218,12 @@ Balora::Balora(String id) // working
 void Balora::begin(void)
 {
     Wire.begin();
-    MPUInit();
-    mpu.begin();
+    // MPUInit();
+    // mpu.begin();
     // LoraInitialization();
     batteryInit();
     showBatteryState();
-    SDInit();
+    // SDInit();
     pixels.begin();
     pixels.clear();
 }
@@ -397,7 +410,7 @@ unsigned int hashMACAddress(const uint8_t *mac)
     return hash % 10000; // Restrict the output to 4 digits
 }
 
-String Balora::hash()
+String Balora::getHash()
 {
     uint8_t mac[6];
     WiFi.macAddress(mac);
@@ -431,12 +444,13 @@ String Balora::hash()
 //         enableInterrupt = true;
 //     }
 // }
-void Balora::setBTName(String btName)
+// void Balora::setBTName(String btName)
+// {
+//     BTID = btName;
+// }
+void Balora::BTInit(String btName)
 {
     BTID = btName;
-}
-void Balora::BTInit(void)
-{
     SerialBT.begin(BTID);
     Serial.println("Discoverable. Pair it with bluetooth");
 }

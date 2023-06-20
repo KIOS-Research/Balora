@@ -27,9 +27,12 @@ public:
     void begin(void);
     void initWiFiClient(const char *wssid, const char *pass); // working
     // void rosInit(void);                                       // pending
+    void LoraInit(void);                      // pending
+    void MPUInit(void);                       // pending
     void setLowPowerCPU(void);                // working
     void setHighPowerCPU(void);               // working
     void loraTxRx(String mess);               // pending
+    void SDInit(void);                        // pending
     void logBattery(void);                    // seems to work, need to verify the sd contents
     void writeToSD(String msg);               // working, if card is hot-ejected must restart to continue
     void showBatteryState(void);              // working
@@ -40,13 +43,13 @@ public:
     sensors_vec_t getAccel(void);             // need definition of sensors_vec_t on main file, works
     sensors_vec_t getGyro(void);              // need definition of sensors_vec_t on main file, works
     String getMac(void);                      // working
-    String hash(void);                        // working
+    String getHash(void);                     // working
     // void loraReceiverPublisher(void); // pending
     // void loraRos(String mess);        // pending
-    void setBTName(String btName); // working
-    void BTInit(void);             // working
-    String BTReceive(void);        // working
-    void BTSend(String msg);       // working
+    // void setBTName(String btName); // working
+    void BTInit(String btName); // working
+    String BTReceive(void);     // working
+    void BTSend(String msg);    // working
 };
 
 #endif // BALORA_H

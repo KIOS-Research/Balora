@@ -8,6 +8,7 @@ void setup()
 {
     Serial.begin(115200);
     node.begin();
+    node.MPUInit();
     node.setLowPowerCPU();
     Serial.println("------IMU EXAMPLE------");
 }

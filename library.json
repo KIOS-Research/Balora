@@ -21,7 +21,7 @@
     }
   ],
   "dependencies": {
-    "jgromes/RadioLib": "4.6.0",
+    "jgromes/RadioLib": "*",
     "sparkfun/SparkFun MAX1704x Fuel Gauge Arduino Library": "*",
     "adafruit/Adafruit NeoPixel": "*",
     "adafruit/Adafruit MPU6050": "*",
