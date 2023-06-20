@@ -65,6 +65,10 @@ OR
 | String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial                               |
 | node.BTSend("Message");                               | Send Message via Bluetooth Serial                                 |
 
+## Importance about Battery Management
+
+It is critical for the user to always include the `node.begin()` function to initialize the Battery Management module and always use `node.handleBattery()` and `node.showBatteryState()` in the loop function to avoid damaging the battery.
+
 ## LoRa Communication
 
 The LoRa mesh implementation is carried out by assigning a timeslot to each of the nodes. The node number defines the time slot. Each slot is assigned per second. Example: Node B3 is assigned the 3rd second slot.
