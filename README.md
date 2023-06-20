@@ -20,7 +20,7 @@ The supported PCB design will be included in the PCB folder of the repository. T
 
 - Semtech SX1268 LoRa Module
 - Adafruit MPU6050 IMU
-- GPS Module (TBD)
+- Quectel L80-R GNSS Module
 - Adafruit NeoPixels (x2)
 - microSD Reader
 - Sparkfun MAX17048 Battery Monitoring IC
