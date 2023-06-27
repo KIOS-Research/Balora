@@ -43,7 +43,7 @@ OR
 | ----------------------------------------------------- | ----------------------------------------------------------------- |
 | Balora node("node id");                               | Initializes core modules and sets the node id.                    |
 | node.begin();                                         | Initializes all modules on board                                  |
-| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password      |
+| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Not working)      |
 | node.MPUInit();                                       | Initializes MPU6050                                               |
 | node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                       |
 | node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                      |
@@ -65,7 +65,7 @@ OR
 | String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial                               |
 | node.BTSend("Message");                               | Send Message via Bluetooth Serial                                 |
 
-## Importance about Battery Management
+## Important note about Battery Management
 
 It is critical for the user to always include the `node.begin()` function to initialize the Battery Management module and always use `node.handleBattery()` and `node.showBatteryState()` in the loop function to avoid damaging the battery.
 
