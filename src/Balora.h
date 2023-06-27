@@ -13,9 +13,7 @@
 #include <SPI.h>
 #include "FS.h"
 #include <ESP32Time.h>
-#include <WiFi.h>
-// #include <ros.h>
-// #include <std_msgs/String.h>
+// #include <WiFi.h>
 #include <BluetoothSerial.h>
 
 class Balora
@@ -25,8 +23,8 @@ public:
     Balora(String id); // working
 
     void begin(void);
-    void initWiFiClient(const char *wssid, const char *pass); // working
-    // void rosInit(void);                                       // pending
+    // void initWiFiClient(const char *wssid, const char *pass); // working
+    // // void rosInit(void);                                       // pending
     void LoraInit(void);                      // pending
     void MPUInit(void);                       // working
     void setLowPowerCPU(void);                // working
@@ -44,9 +42,9 @@ public:
     sensors_vec_t getGyro(void);              // need definition of sensors_vec_t on main file, works
     String getMac(void);                      // working
     String getHash(void);                     // working
-    // void loraReceiverPublisher(void); // pending
-    // void loraRos(String mess);        // pending
-    // void setBTName(String btName); // working
+    // // void loraReceiverPublisher(void); // pending
+    // // void loraRos(String mess);        // pending
+    // // void setBTName(String btName); // working
     void BTInit(String btName); // working
     String BTReceive(void);     // working
     void BTSend(String msg);    // working

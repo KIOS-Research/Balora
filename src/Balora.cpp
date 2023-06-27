@@ -333,29 +333,29 @@ sensors_vec_t Balora::getGyro()
 
     return g.gyro;
 }
-void Balora::initWiFiClient(const char *wssid, const char *pass)
-{
-    WiFi.mode(WIFI_STA);
-    WiFi.begin(wssid, pass);
-    Serial.print("Connecting to WiFi...");
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        Serial.print('.');
-        delay(1000);
-    }
-    Serial.println(WiFi.localIP());
-}
-// void Balora::rosInit()
+// void Balora::initWiFiClient(const char *wssid, const char *pass)
 // {
-//     WiFi.begin(ssid, password);
+//     WiFi.mode(WIFI_STA);
+//     WiFi.begin(wssid, pass);
+//     Serial.print("Connecting to WiFi...");
 //     while (WiFi.status() != WL_CONNECTED)
 //     {
-//         ;
+//         Serial.print('.');
+//         delay(1000);
 //     }
-//     nh.initNode();
-//     nh.advertise(pub);
-//     nh.subscribe(sub);
+//     Serial.println(WiFi.localIP());
 // }
+// // void Balora::rosInit()
+// //{
+// //    WiFi.begin(ssid, password);
+// //    while (WiFi.status() != WL_CONNECTED)
+// //    {
+// //        ;
+// //    }
+// //    nh.initNode();
+// //    nh.advertise(pub);
+// //    nh.subscribe(sub);
+// //}
 String Balora::getID() // working
 {
     return ID;
