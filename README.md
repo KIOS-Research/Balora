@@ -39,31 +39,49 @@ OR
 
 ## Functions
 
-| Function                                              | Description                                                       |
-| ----------------------------------------------------- | ----------------------------------------------------------------- |
-| Balora node("node id");                               | Initializes core modules and sets the node id.                    |
-| node.begin();                                         | Initializes all modules on board                                  |
-| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Not working)      |
-| node.MPUInit();                                       | Initializes MPU6050                                               |
-| node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                       |
-| node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                      |
-| node.SDInit();                                        | Initializes SD Module                                             |
-| node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication)   |
-| node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage) |
-| node.writeToSD("message");                            | Writes given message to SD.                                       |
-| node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%     |
-| node.showBatteryState();                              | REQUIRED ON LOOP to display the battery level with NEOPIXELS      |
-| node.setPath("/log_path.txt");                        | Set SD Logging Path (default: "/log.txt")                         |
-| String nodeID = node.getID();                         | Returns the ID of the node                                        |
-| node.getBattery(double& voltage, double& percentage); | Returns by reference the voltage and percentage of the battery    |
-| sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data)          |
-| sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data)              |
-| String macAd = node.getMac();                         | Returns the MAC address of the node                               |
-| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                               |
-| node.setBTName("Name");                               | Set Bluetooth Broadcast Name (default: BaloraID)                  |
-| node.BTInit();                                        | Initialize Bluetooth Serial Communication                         |
-| String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial                               |
-| node.BTSend("Message");                               | Send Message via Bluetooth Serial                                 |
+| Function                                              | Description                                                                             |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Balora node("node id");                               | Initializes core modules and sets the node id.                                          |
+| node.begin();                                         | Initializes all modules on board                                                        |
+| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Build Flag: -DUSEWIFI)    |
+| node.MPUInit();                                       | Initializes MPU6050 (Build Flag: -DUSEMPU)                                              |
+| node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                                             |
+| node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                                            |
+| node.SDInit();                                        | Initializes SD Module (Build Flag: -DUSESD)                                             |
+| node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication) (Build Flag: -DUSELORA) |
+| node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage)                       |
+| node.writeToSD("message");                            | Writes given message to SD. (Build Flag: -DUSESD)                                       |
+| node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%                           |
+| node.showBatteryState();                              | REQUIRED ON LOOP to display the battery level with NEOPIXELS                            |
+| node.setPath("/log_path.txt");                        | Set SD Logging Path (default: "/log.txt") (Build Flag: -DUSESD)                         |
+| String nodeID = node.getID();                         | Returns the ID of the node                                                              |
+| node.getBattery(double& voltage, double& percentage); | Returns by reference the voltage and percentage of the battery                          |
+| sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data) (Build Flag: -DUSEMPU)         |
+| sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data) (Build Flag: -DUSEMPU)             |
+| String macAd = node.getMac();                         | Returns the MAC address of the node                                                     |
+| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                     |
+| node.setBTName("Name");                               | Set Bluetooth Broadcast Name (Build Flag: -DUSEBT)                                      |
+| node.BTInit();                                        | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT)                         |
+| String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial (Build Flag: -DUSEBT)                               |
+| node.BTSend("Message");                               | Send Message via Bluetooth Serial (Build Flag: -DUSEBT)                                 |
+
+## Usage
+
+To save flash memory, preprocessor directives have been implemented. These directives must be included in the build flags of `platformio.ini`. Notice that the Bluetooth and WiFi implementations take up a large amount of the flash memory due to the driver libraries. All the function descriptions include the required build flags. Example environment to use MPU and LoRa:
+
+```ini
+[env:debugEnv]
+build_type = debug
+platform = espressif32
+board = pico32
+framework = arduino
+lib_deps = https://github.com/KIOS-Research/Balora.git
+monitor_speed = 115200
+upload_speed = 921600
+build_flags =
+    -DUSEMPU=1
+    -DUSELORA=1
+```
 
 ## Important note about Battery Management
 
