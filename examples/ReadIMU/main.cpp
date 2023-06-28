@@ -1,3 +1,8 @@
+/* Add
+build_flags =
+    -DUSEMPU=1
+To platformio.ini */
+
 #include <Arduino.h>
 #include <Balora.h>
 

@@ -25,6 +25,7 @@
     "sparkfun/SparkFun MAX1704x Fuel Gauge Arduino Library": "*",
     "adafruit/Adafruit NeoPixel": "*",
     "adafruit/Adafruit MPU6050": "*",
+    "adafruit/Adafruit Unified Sensor": "*",
     "mikalhart/TinyGPSPlus": "*",
     "fbiego/ESP32Time": "*",
     "BluetoothSerial": "*",
