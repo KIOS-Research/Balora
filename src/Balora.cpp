@@ -37,6 +37,26 @@ void Balora::setHighPowerCPU(void)
     setCpuFrequencyMhz(240);
 }
 
+#if USELORA
+// SX1268 LoRa Module SPI pins
+#define LORA_TXEN_PIN 2  // SX1268 TX enable pin
+#define LORA_RXEN_PIN 15 // SX1268 RX enable pin
+#define LORA_CS 5
+#define LORA_IRQ 14
+#define LORA_RST 12
+#define LORA_GPIO 27
+void enableLora()
+{
+    digitalWrite(LORA_TXEN_PIN, HIGH);
+    digitalWrite(LORA_RXEN_PIN, HIGH);
+}
+void disableLora()
+{
+    digitalWrite(LORA_TXEN_PIN, LOW);
+    digitalWrite(LORA_RXEN_PIN, LOW);
+}
+#endif
+
 void batteryInit() // working
 {
     if (lipo.begin() == false)
@@ -281,14 +301,6 @@ void Balora::setPath(String path)
 
 // LoRa Definition and Functions
 #if USELORA
-// SX1268 LoRa Module SPI pins
-#define LORA_TXEN_PIN 2  // SX1268 TX enable pin
-#define LORA_RXEN_PIN 15 // SX1268 RX enable pin
-#define LORA_CS 5
-#define LORA_IRQ 14
-#define LORA_RST 12
-#define LORA_GPIO 27
-
 SX1268 radio = new Module(LORA_CS, LORA_IRQ, LORA_RST, LORA_GPIO);
 
 // LoRa Auxiliaries Declaration
@@ -330,16 +342,6 @@ void Balora::loraTxRx(String mess)
         int state = radio.receive(str);
         String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
     }
-}
-void enableLora()
-{
-    digitalWrite(LORA_TXEN_PIN, HIGH);
-    digitalWrite(LORA_RXEN_PIN, HIGH);
-}
-void disableLora()
-{
-    digitalWrite(LORA_TXEN_PIN, LOW);
-    digitalWrite(LORA_RXEN_PIN, LOW);
 }
 #endif
 
