@@ -36,6 +36,15 @@ void Balora::setHighPowerCPU(void)
     Serial.println("Setting CPU to 240MHz");
     setCpuFrequencyMhz(240);
 }
+// GPS Declaration
+#if USEGPS
+void Balora::GPSInit()
+{
+    TinyGPSPlus gps;
+    SoftwareSerial ss(12, 13);
+    ss.begin(9600);
+}
+#endif
 
 #if USELORA
 // SX1268 LoRa Module SPI pins
@@ -192,11 +201,6 @@ void Balora::begin(void)
     pixels.begin();
     pixels.clear();
 }
-
-// GPS Declaration
-#if USEGPS
-TinyGPSPlus gps;
-#endif
 
 // SD Card Definition and Functions
 #if USESD

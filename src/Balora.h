@@ -63,7 +63,9 @@ public:
     void writeToSD(String msg); // working, if card is hot-ejected must restart to continue
     void setPath(String path);  // working
 #endif
-
+#if USEGPS
+    void GPSInit(void);
+#endif
     // working
 // // void loraReceiverPublisher(void); // pending
 // // void loraRos(String mess);        // pending
