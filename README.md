@@ -48,7 +48,7 @@ OR
 | node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                                               |
 | node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                                              |
 | node.SDInit();                                        | Initializes SD Module (Build Flag: -DUSESD=1)                                             |
-| node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication) (Build Flag: -DUSELORA=1) |
+| node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication) (Build Flag: -DUSELORA=1 and -DUSEGPS=1) |
 | node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage)                         |
 | node.writeToSD("message");                            | Writes given message to SD. (Build Flag: -DUSESD=1)                                       |
 | node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%                             |
