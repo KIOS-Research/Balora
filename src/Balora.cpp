@@ -38,10 +38,10 @@ void Balora::setHighPowerCPU(void)
 }
 // GPS Declaration
 #if USEGPS
+TinyGPSPlus gps;
+SoftwareSerial ss(12, 13);
 void Balora::GPSInit()
 {
-    TinyGPSPlus gps;
-    SoftwareSerial ss(12, 13);
     ss.begin(9600);
 }
 #endif
