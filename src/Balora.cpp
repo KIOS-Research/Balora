@@ -18,7 +18,13 @@ String ID_numb;
 double vltg, perc;
 
 // Time Declaration
-ESP32Time rtc(7200); // GMT+2 Offset
+int toffset = 7200;
+ESP32Time rtc(toffset); // GMT+2 Offset
+
+void Balora::setTimeOffset(int offset)
+{
+    toffset = offset * 3600;
+}
 
 Balora::Balora(String id) // working
 {
@@ -42,9 +48,8 @@ TinyGPSPlus gps;
 #endif
 
 #if USELORA
-// SX1268 LoRa Module SPI pins
-#define LORA_TXEN_PIN 2  // SX1268 TX enable pin
-#define LORA_RXEN_PIN 15 // SX1268 RX enable pin
+#define LORA_TXEN_PIN 2
+#define LORA_RXEN_PIN 15
 #define LORA_CS 5
 #define LORA_IRQ 14
 #define LORA_RST 12
@@ -61,7 +66,7 @@ void disableLora()
 }
 #endif
 
-void batteryInit() // working
+void batteryInit()
 {
     if (lipo.begin() == false)
     {
@@ -108,7 +113,7 @@ void Balora::handleBattery(void)
     if (soc < 25)
     {
         Serial.print("Battery percentage less than 25%, going into deep sleep: ");
-        Serial.print(soc); // Print the battery state of charge
+        Serial.print(soc);
         Serial.println(" %");
 
 // Turn OFF LoRa
@@ -302,7 +307,6 @@ void Balora::setPath(String path)
 #if USELORA
 SX1268 radio = new Module(LORA_CS, LORA_IRQ, LORA_RST, LORA_GPIO);
 
-// LoRa Auxiliaries Declaration
 int transmit_sec;
 volatile bool receivedFlag = false;
 volatile bool enableInterrupt = true;
@@ -346,7 +350,6 @@ void Balora::loraTxRx(String mess)
 
 // MPU Definition and Functions
 #if USEMPU
-// MPU Declaration
 Adafruit_MPU6050 mpu;
 void Balora::MPUInit(void)
 {
@@ -371,8 +374,8 @@ sensors_vec_t Balora::getAccel()
 }
 #endif
 
+// Bluetooth Definition and Functions
 #if USEBT
-// Bluetooth Declaration
 BluetoothSerial SerialBT;
 String BTID = ("Balora" + ID).c_str();
 
@@ -394,8 +397,6 @@ String Balora::BTReceive()
 }
 void Balora::BTSend(String msg)
 {
-    // char *buf;
-    // msg.toCharArray(buf, 30);
     SerialBT.println(msg);
 }
 #endif
@@ -418,70 +419,3 @@ void Balora::initWiFiClient(const char *wssid, const char *pass)
     Serial.println(WiFi.localIP());
 }
 #endif
-
-// void Balora::loraRos(const String mess)
-// {
-//     transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
-//     String sec = String(transmit_sec);
-//     if (flag && sec.endsWith(ID_numb))
-//     {
-//         flag = false;
-//         String transmit_msg = String(String(ID) + "," + String(mess));
-//         int state = radio.transmit(transmit_msg);
-//     }
-//     else
-//     {
-//         unsigned int i = 0;
-//         String str;
-//         int state = radio.receive(str);
-//         String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
-
-//         if (!str.length() == i)
-//         {
-//             const char *c = msg.c_str();
-//             str_msg.data = c;
-//             pub.publish(&str_msg);
-//         }
-//     }
-//     nh.spinOnce();
-// }
-
-// // void Balora::rosInit()
-// //{
-// //    WiFi.begin(ssid, password);
-// //    while (WiFi.status() != WL_CONNECTED)
-// //    {
-// //        ;
-// //    }
-// //    nh.initNode();
-// //    nh.advertise(pub);
-// //    nh.subscribe(sub);
-// //}
-
-// void Balora::loraReceiverPublisher()
-// {
-//     if (receivedFlag)
-//     {
-//         enableInterrupt = false;
-//         receivedFlag = false;
-
-//         nh.spinOnce();
-
-//         String str;
-//         int state = radio.readData(str);
-
-//         const char *c = str.c_str();
-//         str_msg.data = c;
-//         pub.publish(&str_msg);
-
-//         nh.spinOnce();
-
-//         // Serial.println(str);
-//         radio.startReceive();
-//         enableInterrupt = true;
-//     }
-// }
-// void Balora::setBTName(String btName)
-// {
-//     BTID = btName;
-// }
