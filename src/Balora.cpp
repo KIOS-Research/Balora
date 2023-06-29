@@ -89,8 +89,7 @@ void Balora::handleBattery(void)
 
 // Turn OFF LoRa
 #if USELORA
-        digitalWrite(LORA_TXEN_PIN, LOW);
-        digitalWrite(LORA_RXEN_PIN, LOW);
+        disableLora();
 #endif
 
         pixels.clear();
@@ -308,6 +307,7 @@ void setFlag(void)
 }
 void Balora::LoraInit(void)
 {
+    enableLora();
     int state = radio.begin(434.0, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 10, 8, 0, false);
     radio.setRfSwitchPins(26, 2);
     radio.setDio1Action(setFlag);
@@ -330,6 +330,16 @@ void Balora::loraTxRx(String mess)
         int state = radio.receive(str);
         String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
     }
+}
+void enableLora()
+{
+    digitalWrite(LORA_TXEN_PIN, HIGH);
+    digitalWrite(LORA_RXEN_PIN, HIGH);
+}
+void disableLora()
+{
+    digitalWrite(LORA_TXEN_PIN, LOW);
+    digitalWrite(LORA_RXEN_PIN, LOW);
 }
 #endif
 
