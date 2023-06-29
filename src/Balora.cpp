@@ -174,6 +174,11 @@ void Balora::begin(void)
     pixels.clear();
 }
 
+// GPS Declaration
+#if USEGPS
+TinyGPSPlus gps;
+#endif
+
 // SD Card Definition and Functions
 #if USESD
 #define SD_MISO 19
@@ -275,7 +280,7 @@ void Balora::setPath(String path)
 }
 #endif
 
-// LoRa Definition and Function
+// LoRa Definition and Functions
 #if USELORA
 // SX1268 LoRa Module SPI pins
 #define LORA_TXEN_PIN 2  // SX1268 TX enable pin
@@ -329,7 +334,7 @@ void Balora::loraTxRx(String mess)
 #endif
 
 // MPU Definition and Functions
-#if USEMPU == 1
+#if USEMPU
 // MPU Declaration
 Adafruit_MPU6050 mpu;
 void Balora::MPUInit(void)
@@ -383,13 +388,9 @@ void Balora::BTSend(String msg)
     SerialBT.println(msg);
 }
 #endif
-// GPS Declaration
-#if USEGPS
-TinyGPSPlus gps;
-#endif
 
+// WiFi Definitions and Functions
 #if USEWIFI
-// WiFi Client Parameter Declaration
 const char *ssid;
 const char *password;
 

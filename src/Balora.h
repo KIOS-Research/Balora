@@ -11,7 +11,7 @@
 #if USELORA
 #include <RadioLib.h>
 #endif
-#if USEMPU == 1
+#if USEMPU
 #include <Adafruit_MPU6050.h>
 // #include <Adafruit_Sensor.h>
 #endif
