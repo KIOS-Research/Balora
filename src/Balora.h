@@ -17,6 +17,7 @@
 #endif
 #if USEGPS
 #include <TinyGPS++.h>
+#include <SoftwareSerial.h>
 #endif
 #if USESD
 #include <SD.h>

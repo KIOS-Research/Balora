@@ -31,7 +31,8 @@
     "BluetoothSerial": "*",
     "SPI": "*",
     "frankjoshua/Rosserial Arduino Library": "*",
-    "adafruit/Adafruit BusIO": "*"
+    "adafruit/Adafruit BusIO": "*",
+    "plerup/EspSoftwareSerial": "*"
   },
   "license": "EUPL v1.1",
   "frameworks": "*",
