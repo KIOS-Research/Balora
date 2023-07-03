@@ -4,12 +4,6 @@ build_flags =
     -DUSEGPS=1
 To platformio.ini */
 
-/* Add:
-build_flags =
-    -DUSELORA=1
-    -DUSEGPS=1
-To platformio.ini */
-
 #include <Arduino.h>
 #include <Balora.h>
 
