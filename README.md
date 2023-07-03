@@ -39,31 +39,32 @@ OR
 
 ## Functions
 
-| Function                                              | Description                                                                               |
-| ----------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| Balora node("node id");                               | Initializes core modules and sets the node id.                                            |
-| node.begin();                                         | Initializes all modules on board                                                          |
-| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Build Flag: -DUSEWIFI=1)    |
-| node.MPUInit();                                       | Initializes MPU6050 (Build Flag: -DUSEMPU=1)                                              |
-| node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                                               |
-| node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                                              |
-| node.SDInit();                                        | Initializes SD Module (Build Flag: -DUSESD=1)                                             |
-| node.loraTxRx("message");                             | Crude mesh LoRa communication (see section: LoRa Communication) (Build Flag: -DUSELORA=1 and -DUSEGPS=1) |
-| node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage)                         |
-| node.writeToSD("message");                            | Writes given message to SD. (Build Flag: -DUSESD=1)                                       |
-| node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%                             |
-| node.showBatteryState();                              | REQUIRED ON LOOP to display the battery level with NEOPIXELS                              |
-| node.setPath("/log_path.txt");                        | Set SD Logging Path (default: "/log.txt") (Build Flag: -DUSESD=1)                         |
-| String nodeID = node.getID();                         | Returns the ID of the node                                                                |
-| node.getBattery(double& voltage, double& percentage); | Returns by reference the voltage and percentage of the battery                            |
-| sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)         |
-| sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)             |
-| String macAd = node.getMac();                         | Returns the MAC address of the node                                                       |
-| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                       |
-| node.setBTName("Name");                               | Set Bluetooth Broadcast Name (Build Flag: -DUSEBT=1)                                      |
-| node.BTInit();                                        | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT=1)                         |
-| String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial (Build Flag: -DUSEBT=1)                               |
-| node.BTSend("Message");                               | Send Message via Bluetooth Serial (Build Flag: -DUSEBT=1)                                 |
+| Function                                              | Description                                                                            |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Balora node("node id");                               | Initializes core modules and sets the node id.                                         |
+| node.begin();                                         | Initializes all modules on board                                                       |
+| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Build Flag: -DUSEWIFI=1) |
+| node.initMPU();                                       | Initializes MPU6050 (Build Flag: -DUSEMPU=1)                                           |
+| node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                                            |
+| node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                                           |
+| node.initSD();                                        | Initializes SD Module (Build Flag: -DUSESD=1)                                          |
+| node.loraTx("message");                               | LoRa Transmission Function (Build Flag: -DUSELORA=1 and -DUSEGPS=1)                    |
+| String loraMsg = node.loraRx();                       | Returns LoRa Received String (Build Flag: -DUSELORA=1 and -DUSEGPS=1)                  |
+| node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage)                      |
+| node.writeToSD("message");                            | Writes given message to SD. (Build Flag: -DUSESD=1)                                    |
+| node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%                          |
+| node.showBatteryState();                              | REQUIRED ON LOOP to display the battery level with NEOPIXELS                           |
+| node.setPath("/log_path.txt");                        | Set SD Logging Path (default: "/log.txt") (Build Flag: -DUSESD=1)                      |
+| String nodeID = node.getID();                         | Returns the ID of the node                                                             |
+| node.getBattery(double& voltage, double& percentage); | Returns by reference the voltage and percentage of the battery                         |
+| sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)      |
+| sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)          |
+| String macAd = node.getMac();                         | Returns the MAC address of the node                                                    |
+| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                    |
+| node.setBTName("Name");                               | Set Bluetooth Broadcast Name (Build Flag: -DUSEBT=1)                                   |
+| node.initBT();                                        | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT=1)                      |
+| String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial (Build Flag: -DUSEBT=1)                            |
+| node.sendBT("Message");                               | Send Message via Bluetooth Serial (Build Flag: -DUSEBT=1)                              |
 
 ## Usage
 
@@ -81,15 +82,12 @@ upload_speed = 921600
 build_flags =
     -DUSEMPU=1
     -DUSELORA=1
+    -DUSEGPS=1
 ```
 
 ## Important note about Battery Management
 
 It is critical for the user to always include the `node.begin()` function to initialize the Battery Management module and always use `node.handleBattery()` and `node.showBatteryState()` in the loop function to avoid damaging the battery.
-
-## LoRa Communication
-
-The LoRa mesh implementation is carried out by assigning a timeslot to each of the nodes. The node number defines the time slot. Each slot is assigned per second. Example: Node B3 is assigned the 3rd second slot.
 
 ## Bluetooth Communication
 

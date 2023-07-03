@@ -307,19 +307,6 @@ void Balora::setPath(String path)
 #if USELORA
 SX1268 radio = new Module(LORA_CS, LORA_IRQ, LORA_RST, LORA_GPIO);
 
-int transmit_sec;
-volatile bool receivedFlag = false;
-volatile bool enableInterrupt = true;
-volatile bool flag = false;
-
-void setFlag(void)
-{
-    if (!enableInterrupt)
-    {
-        return;
-    }
-    receivedFlag = true;
-}
 void Balora::LoraInit(void)
 {
     enableLora();
@@ -328,23 +315,15 @@ void Balora::LoraInit(void)
     radio.setDio1Action(setFlag);
 }
 
-void Balora::loraTxRx(String mess)
+void Balora::loraTx(String mess)
 {
-    transmit_sec = (transmit_sec + gps.time.second() + 1) % 60;
-    String sec = String(transmit_sec);
-    if (flag && sec.endsWith(ID_numb))
-    {
-        flag = false;
-        String transmit_msg = String(String(ID) + "," + String(mess));
-        int state = radio.transmit(transmit_msg);
-    }
-    else
-    {
-        unsigned int i = 0;
-        String str;
-        int state = radio.receive(str);
-        String msg = String(String(str) + "," + String(radio.getRSSI()) + "," + String(radio.getSNR()));
-    }
+    int state = radio.transmit(mess);
+}
+String Balora::loraRx(void)
+{
+    String str;
+    int state = radio.receive(str);
+    return str;
 }
 #endif
 

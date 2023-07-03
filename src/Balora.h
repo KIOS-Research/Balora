@@ -41,20 +41,21 @@ public:
     void handleBattery(void);
     void getBattery(double &v, double &perc);
     String getMac(void);
-    String getHash(void);
+    String getHashMac(void);
     void setTimeOffset(int offset);
 #if USEWIFI
     void initWiFiClient(const char *wssid, const char *pass);
 #endif
 
-#if USEMPU == 1
+#if USEMPU
     void MPUInit(void);
     sensors_vec_t getAccel(void);
     sensors_vec_t getGyro(void);
 #endif
 #if USELORA
     void LoraInit(void);
-    void loraTxRx(String mess);
+    void loraTx(String mess);
+    String loraRx(void);
 #endif
 #if USESD
     void SDInit(void);
