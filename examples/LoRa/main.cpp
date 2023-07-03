@@ -4,6 +4,12 @@ build_flags =
     -DUSEGPS=1
 To platformio.ini */
 
+/* Add:
+build_flags =
+    -DUSELORA=1
+    -DUSEGPS=1
+To platformio.ini */
+
 #include <Arduino.h>
 #include <Balora.h>
 
@@ -14,15 +20,16 @@ void setup()
     Serial.begin(115200);
     node.begin();
     node.setLowPowerCPU();
-    node.LoraInit();
+    node.loraInit();
     Serial.println("------LORA TX and RX Example------");
 }
 
 void loop()
 {
-    node.loraTxRx(node.getID());
-
+    Serial.println(node.loraRx());
+    // node.loraTx("Message");
     node.handleBattery();
     node.showBatteryState();
-    delay(1000);
+    delay(10);
+    // delay(1000);
 }
