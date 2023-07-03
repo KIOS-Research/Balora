@@ -12,7 +12,7 @@ void setup()
     node.setLowPowerCPU();
     Serial.println("------MAC & HASH EXAMPLE------");
     macAd = node.getMac();
-    hash = node.getHash();
+    hash = node.getHashMac();
     Serial.print("MAC Address: ");
     Serial.println(macAd);
     Serial.print("Hash: ");

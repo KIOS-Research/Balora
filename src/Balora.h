@@ -48,12 +48,12 @@ public:
 #endif
 
 #if USEMPU
-    void MPUInit(void);
+    void initMPU(void);
     sensors_vec_t getAccel(void);
     sensors_vec_t getGyro(void);
 #endif
 #if USELORA
-    void LoraInit(void);
+    void loraInit(void);
     void loraTx(String mess);
     String loraRx(void);
 #endif
@@ -65,9 +65,9 @@ public:
 #endif
 
 #if USEBT
-    void BTInit(String btName);
-    String BTReceive(void);
-    void BTSend(String msg);
+    void initBT(String btName);
+    String btRx(void);
+    void btTx(String msg);
 #endif
 };
 

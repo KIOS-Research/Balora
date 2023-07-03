@@ -12,7 +12,7 @@ void setup()
 {
     Serial.begin(115200);
     node.begin();
-    node.SDInit();
+    node.initSD();
     node.setLowPowerCPU();
     node.setPath("/testFile.txt");
     Serial.println("------LOG TO SD EXAMPLE------");

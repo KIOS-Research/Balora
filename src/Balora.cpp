@@ -182,7 +182,7 @@ unsigned int hashMACAddress(const uint8_t *mac)
     return hash % 10000; // Restrict the output to 4 digits
 }
 
-String Balora::getHash()
+String Balora::getHashMac()
 {
     uint8_t mac[6];
     WiFi.macAddress(mac);
@@ -254,7 +254,7 @@ void appendFile(fs::FS &fs, const char *path, const char *message)
     }
     file.close();
 }
-void Balora::SDInit()
+void Balora::initSD()
 {
     sdSPI.begin(SD_SCLK, SD_MISO, SD_MOSI, SD_CS);
     if (!SD.begin(SD_CS, sdSPI))
@@ -307,7 +307,7 @@ void Balora::setPath(String path)
 #if USELORA
 SX1268 radio = new Module(LORA_CS, LORA_IRQ, LORA_RST, LORA_GPIO);
 
-void Balora::LoraInit(void)
+void Balora::loraInit(void)
 {
     enableLora();
     int state = radio.begin(434.0, 125.0, 9, 7, RADIOLIB_SX126X_SYNC_WORD_PRIVATE, 10, 8, 0, false);
@@ -330,7 +330,7 @@ String Balora::loraRx(void)
 // MPU Definition and Functions
 #if USEMPU
 Adafruit_MPU6050 mpu;
-void Balora::MPUInit(void)
+void Balora::initMPU(void)
 {
     mpu.begin();
     mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
@@ -358,13 +358,13 @@ sensors_vec_t Balora::getAccel()
 BluetoothSerial SerialBT;
 String BTID = ("Balora" + ID).c_str();
 
-void Balora::BTInit(String btName)
+void Balora::initBT(String btName)
 {
     BTID = btName;
     SerialBT.begin(BTID);
     Serial.println("Discoverable. Pair it with Bluetooth");
 }
-String Balora::BTReceive()
+String Balora::btRx()
 {
     String mess = "";
     if (SerialBT.available())
@@ -374,7 +374,7 @@ String Balora::BTReceive()
     }
     return mess;
 }
-void Balora::BTSend(String msg)
+void Balora::btTx(String msg)
 {
     SerialBT.println(msg);
 }

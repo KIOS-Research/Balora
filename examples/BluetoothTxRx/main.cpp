@@ -10,15 +10,15 @@ void setup()
     Serial.begin(115200);
     node.begin();
     node.setLowPowerCPU();
-    node.BTInit("TestBalora");
+    node.initBT("TestBalora");
     Serial.println("------BLUETOOTH EXAMPLE------");
 }
 
 void loop()
 {
-    node.BTSend("Hello!");
+    node.btTx("Hello!");
 
-    btrx = node.BTReceive();
+    btrx = node.btRx();
     Serial.println("Received Message:");
     Serial.println(btrx);
 
