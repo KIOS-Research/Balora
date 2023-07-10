@@ -94,6 +94,12 @@ It is critical for the user to always include the `node.begin()` function to ini
 The Bluetooth communication is achieved with the BluetoothSerial library that utilizes the Android Bluetooth Terminal
 [app](https://play.google.com/store/apps/details?id=de.kai_morich.serial_bluetooth_terminal).
 
+## PCB
+
+The [Gerber](https://github.com/KIOS-Research/Balora/tree/master/gerber) files can be used to manufacture the specific Balora PCB Design.
+![Balora v0.7 Front](https://github.com/KIOS-Research/Balora/blob/master/images/balora_front.png?raw=true)
+![Balora v0.7 Back](https://github.com/KIOS-Research/Balora/blob/master/images/balora_back.png?raw=true)
+
 ## Contributing
 
 Everyone is welcome to participate in this project. Whether you are helping others to resolve issues, reporting a new issue that hasn't yet been discovered, suggesting a new feature that would benefit your workflow, or writing code (or tests, or scripts, or ...), we value your time and effort.
