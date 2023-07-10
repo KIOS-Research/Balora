@@ -63,8 +63,8 @@ OR
 | String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                    |
 | node.setBTName("Name");                               | Set Bluetooth Broadcast Name (Build Flag: -DUSEBT=1)                                   |
 | node.initBT();                                        | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT=1)                      |
-| String btMsg = node.BTReceive();                      | Return String from Bluetooth Serial (Build Flag: -DUSEBT=1)                            |
-| node.sendBT("Message");                               | Send Message via Bluetooth Serial (Build Flag: -DUSEBT=1)                              |
+| String btMsg = node.btRx();                      | Return String from Bluetooth Serial (Build Flag: -DUSEBT=1)                            |
+| node.btTx("Message");                               | Send Message via Bluetooth Serial (Build Flag: -DUSEBT=1)                              |
 
 ## Usage
 
