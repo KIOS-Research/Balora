@@ -97,8 +97,8 @@ The Bluetooth communication is achieved with the BluetoothSerial library that ut
 ## PCB
 
 The [Gerber](https://github.com/KIOS-Research/Balora/tree/master/gerber) files can be used to manufacture the specific Balora PCB Design.
-![Balora v0.7 Front](https://github.com/KIOS-Research/Balora/blob/master/images/balora_front.png?raw=true)
-![Balora v0.7 Back](https://github.com/KIOS-Research/Balora/blob/master/images/balora_back.png?raw=true)
+![Balora v0.7 Front](https://github.com/KIOS-Research/Balora/blob/master/images/balora_front.png?raw=true | width=100)
+![Balora v0.7 Back](https://github.com/KIOS-Research/Balora/blob/master/images/balora_back.png?raw=true | width=100)
 
 ## Contributing
 
