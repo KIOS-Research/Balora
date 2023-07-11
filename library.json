@@ -34,7 +34,7 @@
     "adafruit/Adafruit BusIO": "*",
     "plerup/EspSoftwareSerial": "*"
   },
-  "license": "EUPL v1.1",
+  "license": "EUPL-1.1",
   "frameworks": "*",
   "platforms": "*",
   "headers": "Balora.h",
