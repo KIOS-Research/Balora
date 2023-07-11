@@ -58,7 +58,7 @@ public:
     String loraRx(void);
 #endif
 #if USESD
-    void SDInit(void);
+    void initSD(void);
     void logBattery(void);
     void writeToSD(String msg);
     void setPath(String path);

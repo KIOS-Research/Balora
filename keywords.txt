@@ -8,27 +8,41 @@ Balora	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
+# General Functions
 begin	KEYWORD2
+getID   KEYWORD2
 setLowPowerCPU	KEYWORD2
 setHighPowerCPU	KEYWORD2
-loraTxRx	KEYWORD2
-logBattery	KEYWORD2
-writeToSD	KEYWORD2
-handleBattery	KEYWORD2
 showBatteryState KEYWORD2
-getID KEYWORD2
+handleBattery KEYWORD2
 getBattery KEYWORD2
-setPath	KEYWORD2
+getMac KEYWORD2
+getHashMac KEYWORD2
+setTimeOffset KEYWORD2
+
+# WiFi Functions
+initWiFiClient KEYWORD2
+
+# MPU Functions
+initMPU KEYWORD2
 getAccel KEYWORD2
 getGyro KEYWORD2
-getMac KEYWORD2
-hash KEYWORD2
-loraReceiverPublisher KEYWORD2
-loraRos KEYWORD2
-setBTName KEYWORD2
-BTInit KEYWORD2
-BTReceive KEYWORD2
-BTSend KEYWORD2
+
+# LoRa Functions
+loraInit KEYWORD2
+loraTx KEYWORD2
+loraRx KEYWORD2
+
+# SD Card Functions
+initSD KEYWORD2
+logBattery KEYWORD2
+writeToSD KEYWORD2
+setPath KEYWORD2
+
+# Bluetooth Functions
+initBT KEYWORD2
+btRx KEYWORD2
+btTx KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
