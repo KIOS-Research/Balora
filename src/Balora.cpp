@@ -21,6 +21,8 @@ double vltg, perc;
 int toffset = 7200;
 ESP32Time rtc(toffset); // GMT+2 Offset
 
+SPIClass sdSPI(VSPI);
+
 void Balora::setTimeOffset(int offset)
 {
     toffset = offset * 3600;
@@ -209,8 +211,6 @@ void Balora::begin(void)
 #define SD_SCLK 18
 #define SD_CS 25
 
-SPIClass sdSPI(HSPI);
-
 String message = "null";
 String pathSD = "/log.txt";
 
@@ -317,12 +317,16 @@ void Balora::loraInit(void)
 
 void Balora::loraTx(String mess)
 {
+    digitalWrite(LORA_CS, LOW);
     int state = radio.transmit(mess);
+    digitalWrite(LORA_CS, HIGH);
 }
 String Balora::loraRx(void)
 {
+    digitalWrite(LORA_CS, LOW);
     String str;
     int state = radio.receive(str);
+    digitalWrite(LORA_CS, HIGH);
     return str;
 }
 #endif
