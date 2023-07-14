@@ -61,8 +61,7 @@ OR
 | sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)          |
 | String macAd = node.getMac();                         | Returns the MAC address of the node                                                    |
 | String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                    |
-| node.setBTName("Name");                               | Set Bluetooth Broadcast Name (Build Flag: -DUSEBT=1)                                   |
-| node.initBT();                                        | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT=1)                      |
+| node.initBT("BTName");                                        | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT=1)                      |
 | String btMsg = node.btRx();                      | Return String from Bluetooth Serial (Build Flag: -DUSEBT=1)                            |
 | node.btTx("Message");                               | Send Message via Bluetooth Serial (Build Flag: -DUSEBT=1)                              |
 
