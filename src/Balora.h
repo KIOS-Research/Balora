@@ -8,23 +8,23 @@
 #include <SPI.h>
 #include <ESP32Time.h>
 #include <WiFi.h>
-#if USELORA
+#ifdef USELORA
 #include <RadioLib.h>
 #endif
-#if USEMPU
+#ifdef USEMPU
 #include <Adafruit_MPU6050.h>
 #endif
-// #if USEGPS
+// #ifdef USEGPS
 // #include <TinyGPS++.h>
 // #include <SoftwareSerial.h>
 // #endif
-#if USESD
+#ifdef USESD
 #include <SD.h>
 
 #include "FS.h"
 #endif
 
-#if USEBT
+#ifdef USEBT
 #include <BluetoothSerial.h>
 #endif
 
@@ -47,31 +47,32 @@ public:
     void setLedColor(int color);
     void setLedBrightess(int br);
     void showLed(void);
+    void clearLed(void);
 
-#if USEWIFI
+#ifdef USEWIFI
     void initWiFiClient(const char *wssid, const char *pass);
 #endif
 
-#if USEMPU
+#ifdef USEMPU
     void initMPU(void);
     sensors_vec_t getAccel(void);
     sensors_vec_t getGyro(void);
 #endif
-#if USELORA
+#ifdef USELORA
     void loraInit(void);
     void loraTx(String mess);
     String loraRx(void);
     float getLoraRSSI(void);
     float getLoraSNR(void);
 #endif
-#if USESD
+#ifdef USESD
     void initSD(void);
     void logBattery(void);
     void writeToSD(String msg);
     void setPath(String path);
 #endif
 
-#if USEBT
+#ifdef USEBT
     void initBT(String btName);
     String btRx(void);
     void btTx(String msg);

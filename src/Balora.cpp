@@ -45,11 +45,11 @@ void Balora::setHighPowerCPU(void)
     setCpuFrequencyMhz(240);
 }
 // // GPS Declaration
-// #if USEGPS
+// #ifdef USEGPS
 // TinyGPSPlus gps;
 // #endif
 
-#if USELORA
+#ifdef USELORA
 #define LORA_TXEN_PIN 2
 #define LORA_RXEN_PIN 15
 #define LORA_CS 5
@@ -119,7 +119,7 @@ void Balora::handleBattery(void)
         Serial.println(" %");
 
 // Turn OFF LoRa
-#if USELORA
+#ifdef USELORA
         disableLora();
 #endif
 
@@ -159,11 +159,19 @@ void Balora::setLedColor(int color = 0xFFFFFF)
     unsigned int r = (color >> 16) & 0xFF;
     unsigned int g = (color >> 8) & 0xFF;
     unsigned int b = color & 0xFF;
-    pixels.setPixelColor(2, pixels.Color(r, g, b));
+    pixels.setPixelColor(0, pixels.Color(r, g, b));
 }
 void Balora::setLedBrightess(int br = 50)
 {
     pixels.setBrightness(br);
+}
+void Balora::showLed(void)
+{
+    pixels.show();
+}
+void Balora::clearLed(void)
+{
+    pixels.clear();
 }
 
 void Balora::getBattery(double &v, double &perc)
@@ -217,7 +225,7 @@ void Balora::begin(void)
 }
 
 // SD Card Definition and Functions
-#if USESD
+#ifdef USESD
 #define SD_MISO 19
 #define SD_MOSI 23
 #define SD_SCLK 18
@@ -316,7 +324,7 @@ void Balora::setPath(String path)
 #endif
 
 // LoRa Definition and Functions
-#if USELORA
+#ifdef USELORA
 SX1268 radio = new Module(LORA_CS, LORA_IRQ, LORA_RST, LORA_GPIO);
 
 void Balora::loraInit(void)
@@ -352,7 +360,7 @@ float Balora::getLoraSNR(void)
 #endif
 
 // MPU Definition and Functions
-#if USEMPU
+#ifdef USEMPU
 Adafruit_MPU6050 mpu;
 void Balora::initMPU(void)
 {
@@ -378,7 +386,7 @@ sensors_vec_t Balora::getAccel()
 #endif
 
 // Bluetooth Definition and Functions
-#if USEBT
+#ifdef USEBT
 BluetoothSerial SerialBT;
 String BTID = ("Balora" + ID).c_str();
 
@@ -405,7 +413,7 @@ void Balora::btTx(String msg)
 #endif
 
 // WiFi Definitions and Functions
-#if USEWIFI
+#ifdef USEWIFI
 const char *ssid;
 const char *password;
 

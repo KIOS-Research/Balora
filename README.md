@@ -42,31 +42,37 @@ OR
 
 ## Functions
 
-| Function                                              | Description                                                                            |
-| ----------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Balora node("node id");                               | Initializes core modules and sets the node id.                                         |
-| node.begin();                                         | Initializes all modules on board                                                       |
-| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Build Flag: -DUSEWIFI=1) |
-| node.initMPU();                                       | Initializes MPU6050 (Build Flag: -DUSEMPU=1)                                           |
-| node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                                            |
-| node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                                           |
-| node.initSD();                                        | Initializes SD Module (Build Flag: -DUSESD=1)                                          |
-| node.loraTx("message");                               | LoRa Transmission Function (Build Flag: -DUSELORA=1 and -DUSEGPS=1)                    |
-| String loraMsg = node.loraRx();                       | Returns LoRa Received String (Build Flag: -DUSELORA=1 and -DUSEGPS=1)                  |
-| node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage)                      |
-| node.writeToSD("message");                            | Writes given message to SD. (Build Flag: -DUSESD=1)                                    |
-| node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%                          |
-| node.showBatteryState();                              | REQUIRED ON LOOP to display the battery level with NEOPIXELS                           |
-| node.setPath("/log_path.txt");                        | Set SD Logging Path (default: "/log.txt") (Build Flag: -DUSESD=1)                      |
-| String nodeID = node.getID();                         | Returns the ID of the node                                                             |
-| node.getBattery(double& voltage, double& percentage); | Returns by reference the voltage and percentage of the battery                         |
-| sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)      |
-| sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data) (Build Flag: -DUSEMPU=1)          |
-| String macAd = node.getMac();                         | Returns the MAC address of the node                                                    |
-| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                    |
-| node.initBT("BTName");                                | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT=1)                      |
-| String btMsg = node.btRx();                           | Return String from Bluetooth Serial (Build Flag: -DUSEBT=1)                            |
-| node.btTx("Message");                                 | Send Message via Bluetooth Serial (Build Flag: -DUSEBT=1)                              |
+| Basic Functions                                       | Description                                                                          |
+| ----------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Balora node("node id");                               | Initializes core modules and sets the node id.                                       |
+| node.begin();                                         | Initializes all modules on board                                                     |
+| node.setLedColor(color);                              | Sets the color of the NeoPixels LED (color must be in hex format 0xFFFFFF)           |
+| node.setLedBrightness(128);                           | Sets the brightness of NeoPixels LED (integer values between 0 and 255)              |
+| node.showLed();                                       | Sets and activates the NeoPixels LED                                                 |
+| node.clearLed();                                      | Clears the NeoPixels LED                                                             |
+| node.initWiFiClient("SSID","PASSWORD");               | Initializes the WiFi Client with the given SSID and Password (Build Flag: -DUSEWIFI) |
+| node.initMPU();                                       | Initializes MPU6050 (Build Flag: -DUSEMPU)                                           |
+| node.setLowPowerCPU();                                | Sets MCU frequency to 80MHz                                                          |
+| node.setHighPowerCPU();                               | Sets MCU frequency to 240MHz                                                         |
+| node.initSD();                                        | Initializes SD Module (Build Flag: -DUSESD)                                          |
+| node.loraTx("message");                               | LoRa Transmission Function (Build Flag: -DUSELORA)                                   |
+| String loraMsg = node.loraRx();                       | Returns LoRa Received String (Build Flag: -DUSELORA)                                 |
+| float loraRSSI = node.getLoraRSSI();                  | Returns the RSSI of LoRa reception in dBm                                            |
+| float loraSNR = node.getLoraSNR();                    | Returns the SNR of LoRa                                                              |
+| node.logBattery();                                    | Logs the battery level to the SD card (time, voltage, percentage)                    |
+| node.writeToSD("message");                            | Writes given message to SD. (Build Flag: -DUSESD)                                    |
+| node.handleBattery();                                 | REQUIRED ON LOOP to send board to deep sleep if battery < 25%                        |
+| node.showBatteryState();                              | REQUIRED ON LOOP to display the battery level with NEOPIXELS                         |
+| node.setPath("/log_path.txt");                        | Set SD Logging Path (default: "/log.txt") (Build Flag: -DUSESD)                      |
+| String nodeID = node.getID();                         | Returns the ID of the node                                                           |
+| node.getBattery(double& voltage, double& percentage); | Returns by reference the voltage and percentage of the battery                       |
+| sensors_vec_t accel = node.getAccel();                | Returns the Accelerometer vector (see Example: IMU Data) (Build Flag: -DUSEMPU)      |
+| sensors_vec_t gyro = node.getGyro();                  | Returns the Gyroscope vector (see Example: IMU Data) (Build Flag: -DUSEMPU)          |
+| String macAd = node.getMac();                         | Returns the MAC address of the node                                                  |
+| String nodeHash = node.getHash();                     | Returns the Hash of the MAC address                                                  |
+| node.initBT("BTName");                                | Initialize Bluetooth Serial Communication (Build Flag: -DUSEBT)                      |
+| String btMsg = node.btRx();                           | Return String from Bluetooth Serial (Build Flag: -DUSEBT)                            |
+| node.btTx("Message");                                 | Send Message via Bluetooth Serial (Build Flag: -DUSEBT)                              |
 
 ## Usage
 
@@ -82,9 +88,9 @@ lib_deps = https://github.com/KIOS-Research/Balora.git
 monitor_speed = 115200
 upload_speed = 921600
 build_flags =
-    -DUSEMPU=1
-    -DUSELORA=1
-    -DUSEGPS=1
+    -DUSEMPU
+    -DUSELORA
+    -DUSEGPS
 ```
 
 ## Important note about Battery Management
