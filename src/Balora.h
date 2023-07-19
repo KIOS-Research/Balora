@@ -14,10 +14,10 @@
 #if USEMPU
 #include <Adafruit_MPU6050.h>
 #endif
-#if USEGPS
-#include <TinyGPS++.h>
-#include <SoftwareSerial.h>
-#endif
+// #if USEGPS
+// #include <TinyGPS++.h>
+// #include <SoftwareSerial.h>
+// #endif
 #if USESD
 #include <SD.h>
 
@@ -43,6 +43,11 @@ public:
     String getMac(void);
     String getHashMac(void);
     void setTimeOffset(int offset);
+
+    void setLedColor(int color);
+    void setLedBrightess(int br);
+    void showLed(void);
+
 #if USEWIFI
     void initWiFiClient(const char *wssid, const char *pass);
 #endif
@@ -56,6 +61,8 @@ public:
     void loraInit(void);
     void loraTx(String mess);
     String loraRx(void);
+    float getLoraRSSI(void);
+    float getLoraSNR(void);
 #endif
 #if USESD
     void initSD(void);

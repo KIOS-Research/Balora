@@ -44,10 +44,10 @@ void Balora::setHighPowerCPU(void)
     Serial.println("Setting CPU to 240MHz");
     setCpuFrequencyMhz(240);
 }
-// GPS Declaration
-#if USEGPS
-TinyGPSPlus gps;
-#endif
+// // GPS Declaration
+// #if USEGPS
+// TinyGPSPlus gps;
+// #endif
 
 #if USELORA
 #define LORA_TXEN_PIN 2
@@ -152,6 +152,18 @@ void Balora::showBatteryState()
     else
         pixels.setPixelColor(1, pixels.Color(0, 25, 0));
     pixels.show();
+}
+
+void Balora::setLedColor(int color = 0xFFFFFF)
+{
+    unsigned int r = (color >> 16) & 0xFF;
+    unsigned int g = (color >> 8) & 0xFF;
+    unsigned int b = color & 0xFF;
+    pixels.setPixelColor(2, pixels.Color(r, g, b));
+}
+void Balora::setLedBrightess(int br = 50)
+{
+    pixels.setBrightness(br);
 }
 
 void Balora::getBattery(double &v, double &perc)
@@ -328,6 +340,14 @@ String Balora::loraRx(void)
     int state = radio.receive(str);
     digitalWrite(LORA_CS, HIGH);
     return str;
+}
+float Balora::getLoraRSSI(void)
+{
+    return radio.getRSSI();
+}
+float Balora::getLoraSNR(void)
+{
+    return radio.getSNR();
 }
 #endif
 
