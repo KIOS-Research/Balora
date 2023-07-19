@@ -15,6 +15,7 @@
 #include <Adafruit_MPU6050.h>
 #endif
 // #ifdef USEGPS
+// disabled
 // #include <TinyGPS++.h>
 // #include <SoftwareSerial.h>
 // #endif

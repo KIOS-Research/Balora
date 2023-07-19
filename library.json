@@ -35,8 +35,8 @@
     "plerup/EspSoftwareSerial": "*"
   },
   "license": "EUPL-1.1",
-  "frameworks": "*",
-  "platforms": "*",
+  "frameworks": "arduino",
+  "platforms": "espressif32",
   "headers": "Balora.h",
   "build": {
     "libLDFMode": "chain+"
